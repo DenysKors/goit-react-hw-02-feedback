@@ -11,11 +11,9 @@ export class App extends Component {
     bad: 0,
   };
 
-  manualAdd = evt => {
-    const { name } = evt.target;
-
+  manualAdd = option => {
     this.setState(prevState => ({
-      [name]: prevState[name] + 1,
+      [option]: prevState[option] + 1,
     }));
   };
 
@@ -42,15 +40,13 @@ export class App extends Component {
       statistics = <Notification message="There is no feedback" />;
     } else {
       statistics = (
-        <Section title="Statistics">
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={this.countTotalFeedback()}
-            positivePercentage={this.countPositiveFeedbackPercentage()}
-          />
-        </Section>
+        <Statistics
+          good={good}
+          neutral={neutral}
+          bad={bad}
+          total={this.countTotalFeedback()}
+          positivePercentage={this.countPositiveFeedbackPercentage()}
+        />
       );
     }
 
@@ -59,7 +55,7 @@ export class App extends Component {
         <Section title="Please leave feedback">
           <FeedbackOptions options={options} onLeaveFeedback={this.manualAdd} />
         </Section>
-        {statistics}
+        <Section title="Statistics">{statistics}</Section>
       </>
     );
   }
